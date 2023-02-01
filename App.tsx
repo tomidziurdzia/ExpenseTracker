@@ -1,20 +1,52 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Expenses, Add, Reports, Settings } from "./src/screens";
+import { theme } from "./src/theme/index";
+import { TabBarIcon } from "./src/components/TabBarIcon";
+
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <NavigationContainer theme={theme}>
       <StatusBar style="auto" />
-    </View>
+      <Tab.Navigator
+        screenOptions={{
+          tabBarStyle: {
+            backgroundColor: theme.colors.card,
+          },
+        }}
+      >
+        <Tab.Screen
+          options={{
+            tabBarIcon: (props) => <TabBarIcon {...props} type="expenses" />,
+          }}
+          name="Expenses"
+          component={Expenses}
+        />
+        <Tab.Screen
+          options={{
+            tabBarIcon: (props) => <TabBarIcon {...props} type="reports" />,
+          }}
+          name="Reports"
+          component={Reports}
+        />
+        <Tab.Screen
+          options={{
+            tabBarIcon: (props) => <TabBarIcon {...props} type="add" />,
+          }}
+          name="Add"
+          component={Add}
+        />
+        <Tab.Screen
+          options={{
+            tabBarIcon: (props) => <TabBarIcon {...props} type="settings" />,
+          }}
+          name="Settings"
+          component={Settings}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
