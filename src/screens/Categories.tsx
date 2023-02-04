@@ -8,11 +8,13 @@ import {
   TextInput,
   TouchableOpacity,
   Modal,
+  Animated,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { theme } from "../theme";
 import CategoryRow from "../components/CategoryRow";
 import { ColorPicker, fromHsv } from "react-native-color-picker";
+import { RectButton, Swipeable } from "react-native-gesture-handler";
 
 interface Color {
   hex: string;
@@ -73,7 +75,37 @@ const Categories = () => {
           }}
         >
           {categories.map(({ id, color, name }: Category) => (
-            <CategoryRow key={id} color={color} name={name} />
+            <Swipeable
+              key={id}
+              renderRightActions={() => {
+                return (
+                  <View
+                    style={{ width: 75, backgroundColor: theme.colors.error }}
+                  >
+                    <RectButton
+                      style={{
+                        flex: 1,
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                      onPress={() =>
+                        setCategories(
+                          categories.filter((category) => category.id !== id)
+                        )
+                      }
+                    >
+                      <Ionicons
+                        name="trash-bin-outline"
+                        size={24}
+                        style={{ color: "white" }}
+                      />
+                    </RectButton>
+                  </View>
+                );
+              }}
+            >
+              <CategoryRow color={color} name={name} />
+            </Swipeable>
           ))}
         </View>
         <View style={{ flex: 1 }} />
