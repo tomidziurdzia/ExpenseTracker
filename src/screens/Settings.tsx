@@ -2,9 +2,9 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import ListItem from "../components/ListItem";
 import { Ionicons } from "@expo/vector-icons";
-import { theme } from "../theme";
+import { Categories } from "./index";
 
-const Settings = () => {
+const Settings = ({ navigation }: any) => {
   return (
     <View
       style={{
@@ -23,7 +23,9 @@ const Settings = () => {
             size={20}
           />
         }
-        onClick={() => {}}
+        onClick={() => {
+          navigation.navigate("Categories");
+        }}
       />
 
       <ListItem label="Erase all data" isDestructive onClick={() => {}} />
